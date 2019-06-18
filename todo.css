@@ -1,0 +1,382 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+/* 页面设置 */
+body {
+  font-size: 15px;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  line-height: 1.5em;
+  background-color: #f5f5f5;
+  color: #4d4d4d;
+  min-width: 230px;
+  max-width: 550px;
+  margin: 0 auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-weight: 400;
+}
+
+/* 程序主体样式 */
+#app {
+  background-color: white;
+  margin: 150px 0 40px 0;
+  position: relative;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
+}
+
+
+#app input::input-placeholder {
+  font-style: italic;
+  font-weight: 400;
+  color: #e6e6e6;
+}
+
+#app input::-webkit-input-placeholder {
+  font-style: italic;
+  font-weight: 400;
+  color: #e6e6e6;
+}
+
+#app input::-moz-placeholder {
+  font-style: italic;
+  font-weight: 400;
+  color: #e6e6e6;
+}
+
+h1 {
+  position: absolute;
+  top: -155px;
+  width: 100%;
+  font-size: 100px;
+  font-weight: 300;
+  text-align: center;
+  color: rgba(129, 60, 133, 0.6);
+  -webkit-text-rendering: optimizelegibility;
+  -moz-text-rendering: optimizelegibility;
+  text-rendering: optimizeLegibility;
+}
+
+/* 新todo项目输入框的样式 */
+#new-Todo,
+.edit {
+  position: relative;
+  margin: 0;
+  width: 100%;
+  font-size: 25px;
+  font-family: inherit;
+  font-weight: inherit;
+  line-height: 1.5em;
+  border: 0;
+  outline: none;
+  color: inherit;
+  padding: 6px;
+  border: 1px solid #999999;
+  box-shadow: inset 0 -1px 5px 0 rgba(0, 0, 0, 0.2);
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#new-Todo {
+  padding: 16px 16px 16px 60px;
+  border: none;
+  background: rgba(0, 0, 0, 0.003);
+  box-shadow: inset 0 -2px 1px rgba(0, 0, 0, 0.03);
+}
+
+/* 程序下半部分 */
+#main {
+  position: relative;
+  z-index: 2;
+  border-top: 1px solid #e6e6e6;
+}
+
+/* 所有Todo项目选择器 */
+input[type="checkbox"] {
+  outline: none;
+}
+
+label[for="all"] {
+  display: none;
+}
+
+
+.all {
+  position: absolute;
+  width: 60px;
+  height: 34px;
+  top: -60px;
+  left: -12px;
+  text-align: center;
+  border: none;
+}
+
+/* checkbox选择之前的样式 */
+.all:before {
+  content: '>';
+  font-size: 24px;
+  color: #e6e6e6;
+  padding: 10px 27px 10px 27px;
+}
+
+.all:checked:before {
+  color: #737373;
+}
+
+#todo-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* .edit表示编辑todo项目时的input的样式 */
+/* .delete表示删除todo项的右侧button的样式 */
+/* .completed表示已完成的todo项的样式 */
+/* .editing表示正在编辑todo项时的样式 */
+#todo-list li {
+  position: relative;
+  font-size: 25px;
+  border-bottom: 1px solid #ededed;
+}
+
+#todo-list li:last-child {
+  border-bottom: none;
+}
+
+#todo-list li.editing {
+  border-bottom: none;
+  padding: 0;
+}
+
+#todo-list li.editing .edit {
+  display: block;
+  width: 506px;
+  padding: 13px 17px 12px 17px;
+  margin: 0 0 0 43px;
+  color: rgba(27, 167, 132, 0.8);
+}
+
+#todo-list li.editing .view {
+  display: none;
+}
+
+/* toggle表示将todo项目置为完成状态的触发器 */
+#todo-list li .toggle {
+  text-align: center;
+  width: 40px;
+  height: auto;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto 0;
+  border: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+#todo-list li .toggle:after {
+  content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="-10 -18 100 135"><circle cx="50" cy="50" r="50" fill="none" stroke="#ededed" stroke-width="3"/></svg>');
+}
+
+#todo-list li .toggle:checked:after {
+  content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="-10 -18 100 135"><circle cx="50" cy="50" r="50" fill="none" stroke="#bddad5" stroke-width="3"/><path fill="#5dc2af" d="M72 25L42 71 27 56l-4 4 20 20 34-52z"/></svg>');
+}
+
+#todo-list li label {
+  white-space: pre-line;
+  word-break: break-all;
+  padding: 15px 60px 15px 15px;
+  margin-left: 45px;
+  display: block;
+  line-height: 1.2;
+  transition: color 0.4s;
+}
+
+#todo-list li.completed label {
+  color: #d9d9d9;
+  text-decoration: line-through;
+}
+
+#todo-list li .delete {
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 10px;
+  bottom: 0;
+  width: 40px;
+  height: 40px;
+  margin: auto 0;
+  font-size: 30px;
+  color: #cc9a9a;
+  margin-bottom: 11px;
+  transition: color 0.3s ease-out;
+}
+
+#todo-list li .delete:hover {
+  color: #af5b5e;
+}
+
+#todo-list li .delete:after {
+  content: 'X';
+}
+
+#todo-list li:hover .delete {
+  display: block;
+}
+
+#todo-list li .edit {
+  display: none;
+}
+
+#todo-list li.editing:last-child {
+  margin-bottom: -1px;
+}
+
+/* 底部过滤器样式 */
+#bottom {
+  color: #777777;
+  padding: 10px 15px;
+  height: 25px;
+  text-align: center;
+  border-top: 1px solid #e6e6e6;
+}
+
+#bottom:before {
+  content: '';
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 50px;
+  overflow: hidden;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2), 0 8px 0 -3px #f6f6f6,
+    0 9px 1px -3px rgba(0, 0, 0, 0.2),
+    0 16px 0 -6px #f6f6f6,
+    0 17px 2px -6px rgba(0, 0, 0, 0.2);
+
+}
+
+#todo-count {
+  float: left;
+  text-align: left;
+}
+
+#todo-count strong {
+  font-weight: 400;
+}
+
+#filters {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  position: absolute;
+  right: 0;
+  left: 0;
+}
+
+/* 每一种过滤器的样式 */
+.filter {
+  display: inline;
+}
+
+.filter a {
+  color: inherit;
+  margin: 3px;
+  padding: 3px 7px;
+  text-decoration: none;
+  border: 1px solid transparent;
+  border-radius: 5px;
+}
+
+.filter a.selected {
+  border-color: rgba(129, 60, 133, 0.4);
+}
+
+.filter a:hover {
+  border-color: rgba(129, 60, 133, 0.2);
+}
+
+/* 底部清空按钮 */
+#clear,
+html #clear:active {
+  float: right;
+  position: relative;
+  line-height: 20px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+#clear:hover {
+  text-decoration: underline;
+}
+
+.info {
+  margin: 65px auto 0;
+  color: #bfbfbf;
+  font-size: 10px;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+  text-align: center;
+}
+
+.info p {
+  line-height: 1;
+}
+
+.info a {
+  color: inherit;
+  text-decoration: none;
+  font-weight: 400;
+}
+
+.info a:hover {
+  text-decoration: underline;
+}
+
+button {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  font-size: 100%;
+  outline: none;
+  vertical-align: baseline;
+  font-family: inherit;
+  font-weight: inherit;
+  color: inherit;
+  -webkit-appearance: none;
+  appearance: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+
+  .all,
+  #todo-list li .toggle {
+    background: none;
+  }
+
+  #todo-list li .toggle {
+    height: 40px;
+  }
+
+  .all {
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
+    -webkit-appearance: none;
+    appearance: none;
+  }
+}
+
+@media (max-width:430px) {
+  footer {
+    height: 50px;
+  }
+
+  #filters {
+    bottom: 10px;
+  }
+}

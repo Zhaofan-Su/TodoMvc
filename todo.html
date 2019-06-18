@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-hans">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Zhaofan SU's TodoMVC</title>
+  <meta name="author" content="Zhaofan Su" />
+  <!-- 移动设备使用，viewport -->
+  <meta content="initial-scale=1, maximum-scale=1,user-scalable=no,width=device-width" name="viewport" />
+  <link rel="stylesheet" href="todo.css">
+  <script type="text/javascript" src="todo.js"></script>
+  <script type="text/javascript" src="model.js"></script>
+  <script type="text/javascript" src="memory.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <!-- 应用标题 -->
+    <header id="header">
+      <h1>Todo List</h1>
+      <!-- 添加新的todo项目 -->
+      <input id="new-Todo" type="text" placeholder="Please write your todo here" autofocus>
+    </header>
+
+    <!-- 主体 -->
+    <section id="main">
+      <input class="all" type="checkbox">
+      <!-- todo项目列表 -->
+      <ul id="todo-list"></ul>
+
+      <footer id="bottom">
+        <!-- tobdo项目总数 -->
+        <span id="todo-count"></span>
+        <ul id="filters">
+          <li class="filter"><a class="selected">All</a></li>
+          <li class="filter"><a>Active</a></li>
+          <li class="filter"><a>Completed</a></li>
+        </ul>
+        <button id="clear">Clear completed</button>
+      </footer>
+    </section>
+  </div>
+
+
+</body>
+
+</html>
