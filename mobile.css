@@ -1,0 +1,477 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+  /*禁止原生的页面滚动事件*/
+  position: relative;
+}
+
+body {
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  background-color: #eef7f2;
+}
+
+
+button {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  font-size: 100%;
+  outline: none;
+  vertical-align: baseline;
+  font-family: inherit;
+  font-weight: inherit;
+  color: inherit;
+  -webkit-appearance: none;
+  appearance: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#header {
+  overflow: hidden;
+  width: 100%;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
+  background-color: white;
+  top: 0;
+  left: 0;
+  z-index: 99;
+}
+
+#header h1 {
+  float: left;
+  margin-bottom: 10px;
+  margin-left: 12px;
+  color: #c743c0;
+  text-shadow: 2px 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+/* 头部全选按钮 */
+.mycheckbox {
+  width: 50px;
+  height: 15px;
+  background: #e6e6e6;
+  margin-right: 12px;
+  margin-top: 40px;
+  position: relative;
+  border-radius: 20px;
+  float: right;
+}
+
+#main {
+  position: absolute;
+  top: 80px;
+  bottom: 45px;
+  overflow: auto;
+  overflow-y: scroll;
+  width: 100%;
+}
+
+/* 使用伪类创建一个新的元素，中间的滑条 */
+.mycheckbox:before {
+  content: '';
+  position: absolute;
+  top: 6px;
+  left: 5px;
+  height: 3px;
+  width: 40px;
+  background: #777777;
+}
+
+/* 中间滑块 */
+.mycheckbox label {
+  display: block;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  -webkit-transition: all .5s ease;
+  -moz-transition: all .5s ease;
+  -o-transition: all .5s ease;
+  -ms-transition: all .5s ease;
+  transition: all .5s ease;
+  cursor: pointer;
+  position: absolute;
+  top: 0px;
+  z-index: 1;
+  left: 0px;
+  background: #dddddd;
+}
+
+.mycheckbox input[type=checkbox] {
+  visibility: hidden;
+}
+
+.mycheckbox input[type=checkbox]:checked+label[for="_checkbox"] {
+  left: 35px;
+  background: #d977e6;
+}
+
+
+/* 添加TODO */
+#out-model {
+  display: none;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  background: rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  z-index: 100;
+  animation: fadeIn 1.5s linear;
+}
+
+#new input::input-placeholder {
+  font-style: italic;
+  font-weight: 400;
+  color: #e6e6e6;
+}
+
+#new input::-webkit-input-placeholder {
+  font-style: italic;
+  font-weight: 400;
+  color: #e6e6e6;
+}
+
+#new input::-moz-placeholder {
+  font-style: italic;
+  font-weight: 400;
+  color: #e6e6e6;
+}
+
+#new {
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  width: 80%;
+  background-color: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+#new h3 {
+  margin-left: 15px;
+  padding-top: 10px;
+}
+
+#new-Todo {
+  width: 90%;
+  margin-left: 15px;
+  position: relative;
+  font-size: 15px;
+  font-family: inherit;
+  font-weight: inherit;
+  border: 0;
+  outline: none;
+  color: inherit;
+  border: 1px solid #999999;
+  box-shadow: inset 0 -1px 5px 0 rgba(0, 0, 0, 0.8);
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#new-Todo {
+  border: none;
+  box-shadow: inset 0 -2px 1px rgba(0, 0, 0, 0.6);
+}
+
+#new #choose {
+  text-align: right;
+  padding: 20px 10px 15px;
+  color: red;
+  font-size: 15px;
+}
+
+#new #choose button {
+  margin: 0 10px;
+}
+
+/* TODO list */
+#todo-list {
+  margin: 0;
+  margin-top: 20px;
+  padding: 0;
+}
+
+
+/* 每一个todo项目的样式 */
+#todo-list li {
+  background-color: aqua;
+  position: relative;
+  margin: 15px 12px;
+  font-size: 25px;
+  list-style: none;
+  border-radius: 8px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.edit {
+  width: 100%;
+  position: relative;
+  padding: 0 2px;
+  font-size: 25px;
+  font-family: inherit;
+  outline: none;
+  color: inherit;
+  background-color: inherit;
+  border: 1px solid #999999;
+  border-radius: 8px;
+  box-shadow: inset 0 -1px 5px 0 rgba(0, 0, 0, 0.5);
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* todo项目正在编辑时的样式 */
+#todo-list li.editing {
+  border-bottom: none;
+  padding: 0;
+}
+
+/* 编辑状态下的input设置 */
+#todo-list li.editing .edit {
+  display: block;
+  width: 100%;
+  padding: 13px 17px 12px 17px;
+  color: rgba(0, 0, 0, 0.35);
+}
+
+#todo-list li.editing .view {
+  display: none;
+}
+
+/* toggle表示将todo项目置为完成状态的触发器 */
+#todo-list li .toggle {
+  border: none;
+  -webkit-appearance: none;
+  appearance: none;
+  position: absolute;
+  top: 0;
+  right: -5px;
+  bottom: 0;
+  width: 40px;
+  height: 40px;
+  margin: auto 0;
+  margin-bottom: 3px;
+  transition: color 0.3s ease-out;
+}
+
+
+#todo-list li .toggle:after {
+  content: url('complete.png');
+}
+
+#todo-list li .toggle:checked:after {
+  content: url('activate.png');
+}
+
+#todo-list li label {
+  color: white;
+  display: block;
+  white-space: pre-line;
+  word-break: break-all;
+  padding: 15px 60px 15px 15px;
+  line-height: 1.2;
+  transition: color 0.4s;
+}
+
+#todo-list li.completed label {
+  text-decoration: line-through;
+  color: #999999;
+  background-color: azure;
+  border-radius: 8px;
+  border: none;
+}
+
+/* 添加todo项目的按钮 */
+#add {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  color: white;
+  font-weight: bold;
+  font-size: 36px;
+  text-align: center;
+  position: fixed;
+  bottom: 55px;
+  right: 10px;
+  background-color: #d57bdf;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+#add:active {
+  background-color: #d955e7;
+}
+
+/* 底部过滤器样式 */
+#bottom {
+  color: #777777;
+  padding: 10px 15px;
+  height: 25px;
+  text-align: center;
+  border-top: 2px solid #e6e6e6;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 99;
+  background-color: white;
+}
+
+#todo-count {
+  float: left;
+  text-align: left;
+  font-weight: 500;
+  color: #ad6598;
+}
+
+
+
+#filters {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  position: absolute;
+  right: 10%;
+}
+
+/* 每一种过滤器的样式 */
+.filter {
+  display: inline;
+}
+
+.filter a {
+  color: inherit;
+  margin: 3px;
+  padding: 3px 7px;
+  text-decoration: none;
+  border: 1px solid transparent;
+  border-radius: 5px;
+}
+
+.filter a.selected {
+  border: 1.5px solid rgba(129, 60, 133, 0.5)
+}
+
+#clear {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  color: white;
+  font-weight: 400;
+  font-size: 16px;
+  text-align: center;
+  position: fixed;
+  bottom: 55px;
+  right: 10px;
+  background-color: #f54e78;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+#clear:active {
+  background-color: #f8154e;
+}
+
+#nothing {
+  position: fixed;
+  top: 80%;
+  left: 50%;
+  margin-top: -80%;
+  margin-left: -50%;
+  text-align: center;
+  width: 100%;
+  color: #999999;
+  font-size: 25px;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 0.6;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 0.6;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@-moz-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 0.6;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.4;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@-webkit-keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.4;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@-moz-keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.4;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
