@@ -300,7 +300,7 @@ button {
   font-weight: bold;
   font-size: 36px;
   text-align: center;
-  position: fixed;
+  position: absolute;
   bottom: 55px;
   right: 10px;
   background-color: #d57bdf;

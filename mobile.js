@@ -239,23 +239,49 @@ function update() {
 }
 
 var _Height
+var _Width
 // 页面载入：获取数据，页面初始化
 window.onload = function init() {
   // 用于后续监听软键盘的弹出与回收
   _Height = document.body.clientHeight
-
+  _Width = document.body.clientWidth
   model.init(function () {
     var data = model.data
     // 添加新todo项目的右下角button的事件绑定
     var addBtn = $('#add')
     var outModel = $('#out-model')
     addBtn.addEventListener('click', function () {
+      console.log(addBtn.style.right)
       addBtn.style.display = 'none'
       $('#nothing').style.display = 'none'
       outModel.style.display = 'block'
       // 自动弹出软键盘
       $('#new-Todo').focus()
     }, false)
+
+    var oldTouch
+    // 添加todo项目button的移动
+    addBtn.addEventListener('touchstart', function (event) {
+      oldTouch = event.touches[0]
+    }, false)
+    addBtn.addEventListener('touchmove', function (event) {
+      var newTouch = event.touches[0]
+      var dleft = newTouch.clientX - oldTouch.clientX
+      var dtop = newTouch.clientY - oldTouch.clientY
+      var left = parseFloat(addBtn.offsetLeft || 0) + dleft
+      var top = parseFloat(addBtn.offsetTop || 0) + dtop
+      // 判断与周围的碰撞,四周留空白
+      if (left >= 10 && top >= (80 + $('#header').style.height) && left <= (_Width - 70) && top <= (_Height - 115)) {
+        addBtn.style.left = left + 'px'
+        addBtn.style.top = top + 'px'
+      }
+      oldTouch = event.touches[0]
+    }, false)
+    addBtn.addEventListener('touchend', function (event) {
+
+    }, false)
+
+
 
     var newTodo = $('#new-Todo')
     var ok = $('#ok')
