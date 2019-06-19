@@ -28,6 +28,23 @@ var toArray = function (fakeArray) {
   return array
 }
 
+var getTime = function () {
+  var date = new Date()
+  var year = date.getFullYear()
+  var month = date.getMonth()
+  if (month < 10)
+    month = '0' + month
+  var day = date.getDate()
+  if (day < 10)
+    day = '0' + day
+  var hour = date.getHours()
+  if (hour < 10)
+    hour = '0' + hour
+  var minute = date.getMinutes()
+  if (minute < 10)
+    minute = '0' + minute
+  return year + '-' + month + '-' + day + ' ' + hour + ':' + minute
+}
 var colorContainer = ['aqua', '#f9d770', '#80DEEA', '#eea2a4', '#B39DDB', '#e16c96']
 
 // 全局todo_id,todo项目总数
@@ -76,6 +93,7 @@ function update() {
       // 增加dom节点下应有的内容
       // label标签里是todo项目的具体内容
       todo.innerHTML = [
+        '<div class="time">' + todoData.time + '</div>',
         '<div class="view">',
         '   <label class="todo-label">' + todoData.content + '</label>',
         '   <input class="toggle" type="checkbox">',
@@ -166,6 +184,7 @@ function update() {
               } else {
                 label.innerHTML = this.value
                 // 保存数据
+                todoData.time = getTime()
                 todoData.content = this.value
               }
               // 数据更新到model中
@@ -251,7 +270,6 @@ window.onload = function init() {
     var addBtn = $('#add')
     var outModel = $('#out-model')
     addBtn.addEventListener('click', function () {
-      console.log(addBtn.style.right)
       addBtn.style.display = 'none'
       $('#nothing').style.display = 'none'
       outModel.style.display = 'block'
@@ -293,8 +311,10 @@ window.onload = function init() {
         alert('please input your todo~')
         return
       }
+      var time = getTime()
       // 用户结束输入，将todo项目保存下来，更新界面
       data.todos.push({
+        time: time,
         content: data.content,
         completed: false
       })
@@ -331,9 +351,10 @@ window.onload = function init() {
         alert('please input your todo~')
         return
       }
-
+      var time = getTime()
       // 用户结束输入，将todo项目保存下来，更新界面
       data.todos.push({
+        time: time,
         content: data.content,
         completed: false
       })
@@ -349,10 +370,12 @@ window.onload = function init() {
     var clear = $('#clear')
     clear.addEventListener('click', function () {
       // 持久化数据中清除已完成项目
-      data.todos.forEach(todo => {
+      var all = data.todos.slice()
+      all.forEach(todo => {
         if (todo.completed)
           data.todos.removeByValue(todo)
       })
+      all = null
       // 更新界面
       update()
     }, false)
@@ -385,7 +408,7 @@ window.onload = function init() {
   })
 }
 
-// 监听软键盘的变化，安卓上需要解决一问题
+// 监听软键盘的变化，安卓上需要解决一些问题
 window.onresize = function resize() {
   // 解决软键盘挡到输入框的问题
   if (document.activeElement.tagName == "INPUT" || document.activeElement.tagName == "TEXTAREA") {
